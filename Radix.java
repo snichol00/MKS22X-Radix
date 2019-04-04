@@ -1,5 +1,9 @@
+import java.util.*;
+@SuppressWarnings({"unchecked", "rawtypes"})
+
 public class Radix{
-  public void radixsort(int[]data){
+
+  public static void radixsort(int[]data){
     @SuppressWarnings("unchecked")
     MyLinkedList<Integer>[] buckets = new MyLinkedList[20];
     //initialize buckets
@@ -20,49 +24,48 @@ public class Radix{
     //looping through digits
     for (int d = 1; d <= digits; d++){
       Node<Integer> node = temp.start();
-      int num = node.getData();
-      int dig = num / (int)(Math.pow(10, i)) % 10;
+      int num = node.data();
+      int dig = num / (int)(Math.pow(10, d)) % 10;
       buckets[dig + 9].add(num);
       //looping through and placing numbers in bucket
-      while(node.hasNext() != void){
+      while(node.hasNext()){
         // gets the digit
-        dig = num / (int)(Math.pow(10, i)) % 10;
+        dig = num / (int)(Math.pow(10, d)) % 10;
         node = node.next();
-        num = node.getData();
+        num = node.data();
         // adds num to appropriate bucket
         buckets[dig + 9].add(num);
       }
     }
-    for (int i = 0; i < 20; y++) {
+    for (int i = 0; i < 20; i++) {
       temp.extend(buckets[i]);
     }
-    Node<Integer> node = data.start();
+    Node<Integer> node = temp.start();
     //set first value
-    data[0] = node.getData();
+    data[0] = node.data();
     //keeps track of index for data to loop through
     int idx = 1;
     //loop through linked list and copy into data
-    while(node.hasNext() != void){
+    while(node.hasNext()){
       node = node.next();
-      data[i] = node.getData();
-      i++;
+      data[idx] = node.data();
+      idx++;
     }
   }
 
-  public int max(int[]data){
+  public static int max(int[]data){
+    if (data.length == 0){
+      return 0;
+    }
     //find max
     int max = 0;
-    for (i = 0; i < data.length; i++){
+    for (int i = 0; i < data.length; i++){
       if (data[i] > max){
         max = data[i];
       }
     }
-    //find number of digits in max
-    for (x = 1; x > 0; x++){
-      if (max % pow(10, x) <= 0){
-        return x;
-      }
-    }
-    return 0;
+    //string will tell length
+    String str = "" + max;
+    return str.length() - 1;
   }
 }
