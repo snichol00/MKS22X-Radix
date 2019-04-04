@@ -1,6 +1,38 @@
 public class Radix{
   public void radixsort(int[]data){
-    rsort(data);
+    @SuppressWarnings("unchecked")
+    MyLinkedList<Integer>[] buckets = new MyLinkedList[20];
+    //initialize buckets
+    for(int i = 0; i < buckets.length; i++){
+      buckets[i] = new MyLinkedList<Integer>();
+    }
+    //first digit copies from array
+    for(int i = 0; i < data.length; i++){
+      //get digit from number
+      int dig = data[i] % 10;
+      //add to correct bucket
+      buckets[dig + 9].add(data[i]);
+    }
+    //goes through rest of digits
+    int digits = max(data);
+    //looping through digits
+    for (int d = 1; d <= digits; d++){
+      Node<Integer> node = data.start();
+      int num = node.getData();
+      int dig = num / (int)(Math.pow(10, i)) % 10;
+      buckets[dig + 9].add(num);
+      //looping through numbers
+      while(buckets.hasNext() != void){
+        dig = num / (int)(Math.pow(10, i)) % 10;
+        node = node.next();
+        num = node.getData();
+        buckets[dig + 9].add(num);
+      }
+    }
+    MyLinkedList<Integer> temp = new MyLinkedList<Integer>();
+    for (int i = 0; i < 20; y++) {
+      temp.extend(buckets[i]);
+    }
   }
 
   public int max(int[]data){
@@ -18,32 +50,5 @@ public class Radix{
       }
     }
     return 0;
-  }
-  public void rsort(int[]data){
-    @SuppressWarnings("unchecked")
-    MyLinkedList<Integer>[] buckets = new MyLinkedList[20];
-    //initialize buckets
-    for(int i = 0; i < buckets.length; i++){
-      buckets[i] = new MyLinkedList<Integer>();
-    }
-    //first digit copies from array
-    for(int i = 0; i < data.length; i++){
-      //get digit from number
-      int dig = (int)(data[i] / (Math.pow(10, i - 1))) % 10;
-      //add to correct bucket
-      buckets[dig].add(data[i]);
-    }
-    //link lists in new linked list
-    MyLinkedList<Integer> temp = buckets[0];
-    for (int i = 0; i < 20; y++) {
-      temp.extend(buckets[i]);
-    }
-    int digits = max(data);
-    //looping through digits
-    for (int d = 1; d <= digits; d++){
-      //looping through numbers
-      while(temp.next() != void){
-        
-      }
   }
 }
