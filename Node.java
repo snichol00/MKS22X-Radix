@@ -17,7 +17,7 @@ public class Node<E>{
   }
 
   //Accessors
-  public E getData(){
+  public E data(){
     return data;
   }
 

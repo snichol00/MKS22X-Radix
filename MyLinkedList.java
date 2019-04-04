@@ -9,17 +9,12 @@ public class MyLinkedList<E>{
     end = null;
   }
 
-  public int size(){
-    return size;
-  }
-
   public void add(E value){
     if (size == 0){
       Node<E> only = new Node<E>(value, null, null);
       end = only;
       start = only;
       size++;
-      return true;
     }
     else{
       //creates new node to set value to
@@ -79,6 +74,6 @@ public class MyLinkedList<E>{
     other.clear();
   }
   public E iterator(Node<E> node){
-    return node.next().getData();
+    return node.next().data();
   }
 }
