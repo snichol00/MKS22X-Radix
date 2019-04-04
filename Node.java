@@ -28,4 +28,23 @@ public class Node<E>{
   public Node prev(){
     return prev;
   }
+
+  //Mutators
+  public E setData(E value){
+    E output = data;
+    data = value;
+    return output;
+  }
+
+  public void setNext(Node<E> nextNode){
+    next = nextNode;
+  }
+
+  public void setPrev(Node<E> prevNode){
+    prev = prevNode;
+  }
+
+  public String toString(){
+    return "" + data;
+  }
 }
