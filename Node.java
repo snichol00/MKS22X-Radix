@@ -1,9 +1,9 @@
 public class Node<E>{
   private E data;
-  private Node<E> next,prev;
+  private Node next,prev;
 
   //Constructor
-  public Node(E myData, Node<E> nextNode, Node<E> prevNode) {
+  public Node(E myData, Node nextNode, Node prevNode) {
     data = myData;
     next = nextNode;
     prev = prevNode;
@@ -21,7 +21,7 @@ public class Node<E>{
     return data;
   }
 
-  public Node<E> next(){
+  public Node next(){
     return next;
   }
 
@@ -30,21 +30,15 @@ public class Node<E>{
   }
 
   //Mutators
-  public E setData(E value){
-    E output = data;
+  public void setData(E value){
     data = value;
-    return output;
   }
 
-  public void setNext(Node<E> nextNode){
+  public void setNext(Node nextNode){
     next = nextNode;
   }
 
-  public void setPrev(Node<E> prevNode){
+  public void setPrev(Node prevNode){
     prev = prevNode;
-  }
-
-  public String toString(){
-    return "" + data;
   }
 }
