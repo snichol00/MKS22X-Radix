@@ -4,8 +4,7 @@ import java.util.*;
 public class Radix{
 
   public static void radixsort(int[]data){
-    @SuppressWarnings("unchecked")
-    MyLinkedList<Integer>[] buckets = new MyLinkedList[20];
+    MyLinkedList[] buckets = new MyLinkedList[20];
     //initialize buckets
     for(int i = 0; i < buckets.length; i++){
       buckets[i] = new MyLinkedList<Integer>();
@@ -23,12 +22,12 @@ public class Radix{
           int num = data[i];
           int dig = (int)(num / (Math.pow(10,d - 1))) % 10;
           //add to correct bucket
-          buckets[dig + 9].add(data[i]);
+          buckets[dig + 9].add(num);
         }
         temp.clear();
-        for (int i = 0; i < buckets.length; i++) {
-          temp.extend(buckets[i]);
-          buckets[i].clear();
+        for (int y = 0; y < 20; y++) {
+          temp.extend(buckets[y]);
+          buckets[y].clear();
         }
       }
       else{
@@ -36,14 +35,14 @@ public class Radix{
       for (int x = 0; x < data.length; x++) {
         // gets the digit
         int num = temp.remove(0);
-        int dig = num / (int)(Math.pow(10, d - 1)) % 10;
+        int dig = (int)(num / (Math.pow(10,d - 1))) % 10;
         // adds num to appropriate bucket
         buckets[dig + 9].add(num);
-        temp.clear();
-        for (int i = 0; i < 20; i++) {
+      }
+      temp.clear();
+      for (int i = 0; i < 20; i++) {
           temp.extend(buckets[i]);
           buckets[i].clear();
-        }
       }
     }
   }
@@ -52,12 +51,13 @@ public class Radix{
     }
   }
 
+
   public static int max(int[]data){
     if (data.length == 0){
       return 0;
     }
     //find max
-    int max = 0;
+    int max = data[0];
     for (int i = 0; i < data.length; i++){
       if (data[i] > max){
         max = data[i];
@@ -65,6 +65,6 @@ public class Radix{
     }
     //string will tell length
     String str = "" + max;
-    return str.length() - 1;
+    return str.length();
   }
 }
