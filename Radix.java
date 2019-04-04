@@ -10,46 +10,45 @@ public class Radix{
     for(int i = 0; i < buckets.length; i++){
       buckets[i] = new MyLinkedList<Integer>();
     }
-    //first digit copies from array
-    for(int i = 0; i < data.length; i++){
-      //get digit from number
-      int dig = data[i] % 10;
-      //add to correct bucket
-      buckets[dig + 9].add(data[i]);
-    }
     //temp to store values
     MyLinkedList<Integer> temp = new MyLinkedList<Integer>();
     //goes through rest of digits
     int digits = max(data);
+
     //looping through digits
     for (int d = 1; d <= digits; d++){
-      Node<Integer> node = temp.start();
-      int num = node.data();
-      int dig = num / (int)(Math.pow(10, d)) % 10;
-      buckets[dig + 9].add(num);
+      if (d == 1){
+        //first digit copies from array
+        for(int i = 0; i < data.length; i++){
+          int num = data[i];
+          int dig = (int)(num / (Math.pow(10,d - 1))) % 10;
+          //add to correct bucket
+          buckets[dig + 9].add(data[i]);
+        }
+        temp.clear();
+        for (int i = 0; i < buckets.length; i++) {
+          temp.extend(buckets[i]);
+          buckets[i].clear();
+        }
+      }
+      else{
       //looping through and placing numbers in bucket
-      while(node.hasNext()){
+      for (int x = 0; x < data.length; x++) {
         // gets the digit
-        dig = num / (int)(Math.pow(10, d)) % 10;
-        node = node.next();
-        num = node.data();
+        int num = temp.remove(0);
+        int dig = num / (int)(Math.pow(10, d - 1)) % 10;
         // adds num to appropriate bucket
         buckets[dig + 9].add(num);
+        temp.clear();
+        for (int i = 0; i < 20; i++) {
+          temp.extend(buckets[i]);
+          buckets[i].clear();
+        }
       }
     }
-    for (int i = 0; i < 20; i++) {
-      temp.extend(buckets[i]);
-    }
-    Node<Integer> node = temp.start();
-    //set first value
-    data[0] = node.data();
-    //keeps track of index for data to loop through
-    int idx = 1;
-    //loop through linked list and copy into data
-    while(node.hasNext()){
-      node = node.next();
-      data[idx] = node.data();
-      idx++;
+  }
+    for (int i = 0; i < data.length; i++) {
+      data[i] = temp.remove(0);
     }
   }
 
